@@ -1,0 +1,59 @@
+<!--
+ * @Description: 
+ * @Version: 1.0
+ * @Autor: Ambition
+ * @Date: 2022-04-08 12:20:35
+ * @LastEditors: Ambition
+ * @LastEditTime: 2022-04-08 12:31:23
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>lesson16</title>
+    <script src="https://unpkg.com/vue@next"></script>
+</head>
+<body>
+    <div id="root"></div>
+</body>
+<script>
+    // 状态动画,svg动画
+    const app = Vue.createApp({
+        data(){
+            return {
+                number: 1,
+                animateNumber: 1,
+            }
+        },
+        methods:{
+            // 按钮控制是否展示
+            add(){
+                this.number = 10;
+                if(this.animateNumber < this.number){
+
+                    // const 修饰不变量 let修饰变量
+                    let currnetNumber = this.animateNumber;
+                    const animation = setInterval(() => {
+                        currnetNumber += 1;
+                        this.animateNumber += 1;
+                        if(currnetNumber === 10){
+                            clearInterval(animation);
+                        }
+                    }, 100);
+                }
+            },
+        },
+        template:`
+            <div>
+                <span>{{animateNumber}}</span>
+                <br/>
+                <button @click="add">增加</button>
+            </div>
+        `
+    });
+    
+    const vm = app.mount('#root');
+</script>
+</html>

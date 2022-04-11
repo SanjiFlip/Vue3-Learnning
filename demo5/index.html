@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>lesson5</title>
+</head>
+<script src="https://unpkg.com/vue@next"></script>
+<body>
+    <div id="root"></div>
+</body>
+<script>
+    const app = Vue.createApp({
+        data() {
+            return {
+                todo:"",
+                list:[]
+            }
+        },
+        methods: {
+            handleAddItem(){
+                if(this.todo == ""){
+                    alert("输入框中的值不能为空");
+                }else{
+                    this.list.push(this.todo);
+                    this.todo = "";
+                }
+            }
+        },
+        template: `
+            <div>
+                <input v-model="todo">
+                <button 
+                    @click="handleAddItem"
+                    v-bind:title="todo"
+                >增加</button>
+                <ul>
+                    <todo-item 
+                    v-for="(item,index) of list" 
+                    v-bind:content="item" 
+                    v-bind:index="index"/>
+                </ul>
+            </div>`
+    });
+
+    app.component("todo-item",{
+        props:['content','index'],
+        template: "<li>{{index+1}}--{{content}}</li>"
+    });
+    // 先挂载组件，再挂载到我们需要渲染的节点
+    app.mount('#root');
+</script>
+</html>

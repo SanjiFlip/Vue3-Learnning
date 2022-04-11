@@ -1,0 +1,66 @@
+<!--
+ * @Description: 
+ * @Version: 1.0
+ * @Autor: Ambition
+ * @Date: 2022-03-31 14:48:32
+ * @LastEditors: Ambition
+ * @LastEditTime: 2022-04-03 13:06:28
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>lesson16</title>
+    <style type="text/css">
+        /*
+            动画
+        */
+        @keyframes leftToRight {
+            0% {
+                transform: translateX(-100px);
+            }
+            50% {
+                transform: translateX(50px);
+            }
+            0% {
+                transform: translateX(0px);
+            }
+        }
+        .animation {
+            animation: leftToRight 3s;
+        }
+
+        </style>
+    <script src="https://unpkg.com/vue@next"></script>
+</head>
+<body>
+    <div id="root"></div>
+</body>
+<script>
+    // 过渡，动画
+    const app = Vue.createApp({
+        data(){
+            return {
+                animate: {
+                    animation: false
+                },
+            }
+        },
+        methods:{
+            toggleAnimate(){
+                this.animate.animation = !this.animate.animation
+            }
+        },
+        template:`
+            <div>
+                <div :class="animate">Hello World</div>
+                <button @click="toggleAnimate">切换</button>
+            </div>
+        `
+    });
+    
+    const vm = app.mount('#root');
+</script>
+</html>

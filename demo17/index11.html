@@ -1,0 +1,120 @@
+<!--
+ * @Description: 
+ * @Version: 1.0
+ * @Autor: Ambition
+ * @Date: 2022-04-07 22:13:36
+ * @LastEditors: Ambition
+ * @LastEditTime: 2022-04-08 10:41:21
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>lesson16</title>
+    <style type="text/css">
+            
+            @keyframes shake {
+                0% {
+                    transform: translateX(-100px);
+                }
+                50% {
+                    transform: translateX(-50px);
+                }
+                100% {
+                    transform: translateX(50px);
+                }
+    
+            }
+            .v-enter-from{
+                color:red;
+            }
+            /*
+            入场动画
+            */
+            .v-enter-active{
+                animation: shake 3s;
+                transition: all 3s ease-in;
+            }
+            /* .v-enter-to{
+                color:green;
+            } */
+            /*
+            出场动画
+            */
+            .v-leave-active{
+                color: red;
+                animation: shake 3s;
+                transition: all 3s ease-in;
+            }
+    </style>
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
+    <script src="https://unpkg.com/vue@next"></script>
+</head>
+<body>
+    <div id="root"></div>
+</body>
+<script>
+    // js 操作动画
+    const app = Vue.createApp({
+        data(){
+            return {
+                show:false,
+            }
+        },
+        methods:{
+            // 按钮控制是否展示
+            toggleShow(){
+                this.show = !this.show;
+            },
+            beforeEnter(el){
+                el.style.color = 'red';
+            },
+            handleEnterActive(el,done){
+                const animation = setInterval(()=>{
+                    const color = el.style.color;
+                    if(color === 'red'){
+                        el.style.color = 'green';
+                    }else{
+                        el.style.color = 'red';
+                    }
+                },1000);
+                setTimeout(()=>{
+                    clearInterval(animation);
+                    // done(); 这个是提示结束后执行的函数，表示当前函数执行完成了 通知函数结束
+                    done();
+                },3000);
+            },
+            handleAfterEnter(){
+                alert(123);
+            },
+        },
+        //:css="false" 不使用css动画
+        // @before-enter="beforeEnter"  动画开始之前执行
+        // @enter="handleEnterActive"   执行中执行
+        // @after-enter="handleAfterEnter" 执行后执行
+        // @brefore-leave="handleLeave" 出场之前执行
+        // @leave="handleLeaveActive" 出场中执行
+        // @after-leave="handleAfterLeave" 出场后执行
+        template:`
+            <div>
+                <transition 
+                    :css="false"
+                    @before-enter="beforeEnter"
+                    @enter="handleEnterActive"
+                    @after-enter="handleAfterEnter"
+                >
+                    <div v-if="show">Hello World</div>
+                </transition>
+                <button @click="toggleShow">切换</button>
+            </div>
+        `
+    });
+    
+    const vm = app.mount('#root');
+</script>
+</html>

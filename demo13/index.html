@@ -1,0 +1,60 @@
+<!--
+ * @Description: 
+ * @Version: 1.0
+ * @Autor: Ambition
+ * @Date: 2021-06-04 16:41:09
+ * @LastEditors: Ambition
+ * @LastEditTime: 2022-03-22 16:13:57
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>lesson13</title>
+</head>
+<script src="https://unpkg.com/vue@next"></script>
+<body>
+    <div id="root"></div>
+</body>
+<script>
+    // 事件修饰符：stop、prevent、capture、self、once、passive
+    // 按键修饰符：
+    const app = Vue.createApp({
+        data() {
+            return {
+                counter: 0,
+                counter1: 0,
+                counter2: 0
+            }
+        },
+        methods: {
+            handelBtnClick(event,num){
+                console.log(event);
+                console.log(event.target);
+                console.log(num);
+                this.counter += num;
+            },
+            handelBtnClick1(){
+                alert("我被点击了！")
+            },
+            handelDivClick(){
+                alert("div被点击了")
+            }
+        },
+        template:`
+        <div>
+            {{counter}}
+            <button @click="handelBtnClick($event,2),handelBtnClick1()">button</button><br>
+            {{counter1}}
+            <button @click="counter1++">button</button>
+            <div @click.self="handelDivClick">
+                <button @click.stop="handelBtnClick1">button</button>
+            </div>
+        </div>
+        `
+    });
+    const vm = app.mount('#root');
+</script>
+</html>

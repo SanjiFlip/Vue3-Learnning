@@ -1,0 +1,49 @@
+<!--
+ * @Description: 
+ * @Version: 1.0
+ * @Autor: Ambition
+ * @Date: 2021-06-15 17:39:11
+ * @LastEditors: Ambition
+ * @LastEditTime: 2022-03-30 23:30:18
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>lesson16</title>
+</head>
+<script src="https://unpkg.com/vue@next"></script>
+<body>
+    <div id="root"></div>
+</body>
+<script>
+    // 具名插槽 每个小组件进行拆分进行name命名
+    // 简写形式 v-slot:header等价于 #header
+    const app = Vue.createApp({
+        template:`
+            <layout>
+                <template #header>
+                    <div>header</div>
+                </template>
+                <template v-slot:footer>
+                    <div>footer</div>
+                </template>
+            </layout>
+        `
+    });
+    app.component('layout',{
+        
+        template: `
+            <div>
+                <slot name="header"></slot>
+                <div>content</div>
+                <slot name="footer"></slot>
+            </div>
+        `
+    });
+
+    const vm = app.mount('#root');
+</script>
+</html>

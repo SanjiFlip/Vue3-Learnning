@@ -1,0 +1,50 @@
+<!--
+ * @Description: 
+ * @Version: 1.0
+ * @Autor: Ambition
+ * @Date: 2021-06-15 17:39:11
+ * @LastEditors: Ambition
+ * @LastEditTime: 2022-03-22 20:12:55
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>lesson16</title>
+</head>
+<script src="https://unpkg.com/vue@next"></script>
+<body>
+    <div id="root"></div>
+</body>
+<script>
+    // 父传子用props
+    const app = Vue.createApp({
+        data() {
+            return {
+                num: 1234,
+                a: 123,
+                b: 456,
+                c: 789,
+                params: {
+                    x: 1234,
+                    y: 4567,
+                    z: 78910,
+                }
+
+            }
+        },
+        template:`<div>
+                    <test :content="num" :a="a" :b="b" :c="c" v-bind="params"/>
+                  </div>`
+    });
+
+    app.component('test',{
+        props:['content','a','b','c','x','y','z'],
+        template: `<div>{{content}}-{{a}}-{{b}}-{{c}}-{{x}}-{{y}}-{{z}}</div>`
+    });
+
+    const vm = app.mount('#root');
+</script>
+</html>

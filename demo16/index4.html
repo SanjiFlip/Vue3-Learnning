@@ -1,0 +1,51 @@
+<!--
+ * @Description: 
+ * @Version: 1.0
+ * @Autor: Ambition
+ * @Date: 2021-06-15 17:39:11
+ * @LastEditors: Ambition
+ * @LastEditTime: 2022-03-23 10:03:57
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>lesson16</title>
+</head>
+<script src="https://unpkg.com/vue@next"></script>
+<body>
+    <div id="root"></div>
+</body>
+<script>
+    // 父传子用props
+    // 属性传的时候，使用content-abc，这种使用的时候采用contentAbc命名
+    // 单向数据流 props接受到的数据只是可读的不可改变 为了组件的复用性
+    const app = Vue.createApp({
+        data() {
+            return {
+                num: 1234,
+            }
+        },
+        template:`<div>
+                    <counter :count="num"/>
+                  </div>`
+    });
+
+    app.component('counter',{
+        props:['count'],
+        data(){
+            return {
+                myCount: this.count
+            }
+        },
+        template: `
+            <div @click="count += 1">{{count}}</div>
+            <div @click="myCount += 1">{{myCount}}</div>
+        `
+    });
+
+    const vm = app.mount('#root');
+</script>
+</html>

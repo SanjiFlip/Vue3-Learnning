@@ -1,0 +1,62 @@
+<!--
+ * @Description: 
+ * @Version: 1.0
+ * @Autor: Ambition
+ * @Date: 2022-04-10 16:00:03
+ * @LastEditors: Ambition
+ * @LastEditTime: 2022-04-10 16:13:23
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>lesson18</title>
+    <style>
+       
+    </style>
+    <script src="https://unpkg.com/vue@next"></script>
+</head>
+<body>
+    <div id="root"></div>
+</body>
+<script>
+
+    const app = Vue.createApp({
+        setup(){
+            const { ref, reactive} = Vue;
+            const inputValue = ref("");
+            const list = reactive([])
+            const handleInputChange = (e)=>{
+                console.log(e.target.value);
+                inputValue.value = e.target.value;
+            };
+            const handleSubmit = ()=>{
+                list.push(inputValue.value);
+                inputValue.value = "";
+            };
+            return {
+                inputValue,
+                list,
+                handleInputChange,
+                handleSubmit
+            }
+        },
+        template:`
+            <div>
+                <div>
+                    <input :value = "inputValue" @input="handleInputChange"/>
+                    <div>inputValue:{{inputValue}}</div>
+                    <button @click="handleSubmit">提交</button>
+                </div>
+                <ul>
+                    <li v-for="(item,index) in list" :key="index">{{item}}</li>
+                </ul>
+            </div>
+        `,
+    });
+    
+    const vm = app.mount('#root');
+</script>
+</html>

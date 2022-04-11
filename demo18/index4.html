@@ -1,0 +1,46 @@
+<!--
+ * @Description: 
+ * @Version: 1.0
+ * @Autor: Ambition
+ * @Date: 2022-04-08 16:20:50
+ * @LastEditors: Ambition
+ * @LastEditTime: 2022-04-08 17:56:11
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>lesson17</title>
+    <script src="https://unpkg.com/vue@next"></script>
+</head>
+<body>
+    <div id="root"></div>
+</body>
+<script>
+    // vue3.0之后不建议使用mixin
+    // mixin 中自定义属性 
+    // 自定义的属性，组件中的属性优先级高于mixin中的属性的优先级
+    const myMixin = {
+        number:1
+    }
+
+    const app = Vue.createApp({
+        mixins:[myMixin],
+        number: 2,
+        template:`
+            <div>
+                <div>{{this.$options.number}}</div>
+            </div>
+        `
+    });
+
+    // 如果想要使mixin属性的优先级高于组件
+    app.config.optionMergeStrategies.number = (mixinVal,appVal) => {
+        return mixinVal || appVal;
+    }
+
+    const vm = app.mount('#root');
+</script>
+</html>

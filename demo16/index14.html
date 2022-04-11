@@ -1,0 +1,59 @@
+<!--
+ * @Description: 
+ * @Version: 1.0
+ * @Autor: Ambition
+ * @Date: 2021-06-15 17:39:11
+ * @LastEditors: Ambition
+ * @LastEditTime: 2022-03-30 23:45:40
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>lesson16</title>
+</head>
+<script src="https://unpkg.com/vue@next"></script>
+<body>
+    <div id="root"></div>
+</body>
+<script>
+    // 动态组件
+    const app = Vue.createApp({
+        data(){
+          return {
+              currentItem: 'input-item'
+          }  
+        },
+        methods:{
+            handleClick(){
+                if(this.currentItem === 'input-item'){
+                    this.currentItem = "common-item"
+                }else{
+                    this.currentItem = "input-item"
+                }
+            }
+        },
+        template:`
+            <input-item v-show="currentItem === 'input-item'"/>
+            <common-item v-show="currentItem === 'common-item'"/>
+            <button @click="handleClick">切换</button>
+        `
+    });
+    app.component('input-item',{
+        template: `
+            <div>
+                <input />
+            </div>
+        `
+    });
+    app.component('common-item',{
+        template: `
+            <div>hello world</div>
+        `
+    });
+
+    const vm = app.mount('#root');
+</script>
+</html>

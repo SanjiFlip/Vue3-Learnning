@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>lesson8</title>
+</head>
+<script src="https://unpkg.com/vue@next"></script>
+<body>
+    <div id="root"></div>
+</body>
+<script>
+    // 生命周期函数：在某一时期会自动执行的函数
+    const app = Vue.createApp({
+        data() {
+            return {
+                message:"hello world!",
+                disable: true,
+                show: false,
+                name: "title",
+                content: "测试",
+                event: "mouseenter" // click
+            }
+        },
+        methods: {
+            handleClick(){
+                alert("我被点击了");
+            },
+            handleClick2(e){
+               e.preventDefault();
+            }
+            ,
+            handleClick3(){
+                alert("good")
+            }
+        },
+        // v-on:click = @click  v-bind:xxx = :xxx   
+        template:`<div @[event]="handleClick" :[name]="content">{{message}}</div>
+        <form action="https://www.baidu.com" @click="handleClick2">
+            <button type="submit">提交1</button>
+        </form>
+        <form action="https://www.baidu.com" @click.prevent="handleClick3">
+            <button type="submit">提交2</button>
+        </form>
+        `
+    });
+    // vm 代表的就是vue应用的根组件
+    const vm = app.mount('#root');
+</script>
+</html>

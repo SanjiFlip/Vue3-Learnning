@@ -1,0 +1,51 @@
+<!--
+ * @Description: 
+ * @Version: 1.0
+ * @Autor: Ambition
+ * @Date: 2022-04-10 17:32:22
+ * @LastEditors: Ambition
+ * @LastEditTime: 2022-04-10 17:39:55
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>lesson18</title>
+    <style>
+       
+    </style>
+    <script src="https://unpkg.com/vue@next"></script>
+</head>
+<body>
+    <div id="root"></div>
+</body>
+<script>
+    // watch 侦听器
+    const app = Vue.createApp({
+        setup(){
+            const { ref,watch } = Vue;
+            const name = ref('')
+            // 具备一定的惰性 lazy
+            // 参数可以拿到原始和新值
+            watch(name,(newVal,oldVal)=>{
+                console.log(newVal,oldVal);
+            })
+            return {
+                name
+            };
+        },
+        template:`
+            <div>
+                Name: <input v-model="name">
+            </div>
+            <div>
+                Name is {{name}}
+            </div>
+        `,
+    });
+    
+    const vm = app.mount('#root');
+</script>
+</html>

@@ -1,0 +1,91 @@
+<!--
+ * @Description: 
+ * @Version: 1.0
+ * @Autor: Ambition
+ * @Date: 2021-06-05 22:21:45
+ * @LastEditors: Ambition
+ * @LastEditTime: 2022-03-22 19:52:58
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>lesson15</title>
+</head>
+<script src="https://unpkg.com/vue@next"></script>
+<body>
+    <div id="root"></div>
+</body>
+<script>
+
+    // 局部组件 需要在app创建之前进行实例化
+    // 定义了要注册之后才能使用，性能比较高
+    // 命名建议 大写字母开头，驼峰命名
+    // 局部组件使用的时候，要做一个名字和组件之间的映射对象，你不写映射，Vue底层也会自动尝试帮你映射
+    const counter_tmp = {
+        data() {
+            return {
+                count: 1
+            }
+        },
+        template: `<div @click="count += 1">{{count}}</div>`
+    }
+    const counter_tmp2 = {
+        data() {
+            return {
+                count: 1
+            }
+        },
+        template: `<div @click="count += 1">{{count}}</div>`
+    }
+
+    const HelloWorld = {
+        template: `<div>Hello World</div>`,
+    }
+    
+    // 组件的定义
+    // 组件具备复用性 每个组件的数据都是单独的
+    // 全局组件，只要定义了，处处可以使用，性能不高，但是使用起来简单
+    // 命名建议 小写字母单词开头，中间用横线间隔
+    const app = Vue.createApp({
+        components:{
+            counter_tmp: counter_tmp,
+            'dell': counter_tmp2,
+            'hello-world': HelloWorld
+        },
+        template:`<div>
+                    <hello/>
+                    <world/>
+                    <counter/> 
+                    <counter-parent/>
+                    <br/>
+                    局部组件
+                    <counter_tmp/>
+                    <dell/>
+                    <hello-world/>
+                  </div>`
+    });
+
+    // 以下挂载的均为全局组件
+    app.component('hello',{
+        template:`<div>hello</div>`
+    })
+    app.component('world',{
+        template:`<div>world</div>`
+    })
+    app.component('counter',{
+        data() {
+            return {
+                count: 1
+            }
+        },
+        template: `<div @click="count += 1">{{count}}</div>`
+    })
+    app.component('counter-parent',{
+        template: `<counter/>`
+    })
+    const vm = app.mount('#root');
+</script>
+</html>

@@ -1,0 +1,86 @@
+<!--
+ * @Description: 
+ * @Version: 1.0
+ * @Autor: Ambition
+ * @Date: 2022-04-08 11:42:16
+ * @LastEditors: Ambition
+ * @LastEditTime: 2022-04-08 12:04:51
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>lesson16</title>
+    <style type="text/css">
+        .v-enter-from{
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        .v-enter-active{
+            transition: all 3s ease-in;
+        }
+        .v-enter-to{
+            opacity: 1;
+            transform: translateY(0);
+        }
+        /*
+            默认操作动画显示
+        */
+        .v-move{
+            transition: all .5s ease-in;
+        }
+        .v-leave-from{
+            opacity: 1;
+            transform: translateY(0px);
+        }
+        .v-leave-active{
+            transition: all 3s ease-in;
+        }
+        .v-leave-to{
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        .list-item{
+            display: inline-block;
+            margin-right: 10px;
+        }
+    </style>
+    <script src="https://unpkg.com/vue@next"></script>
+</head>
+<body>
+    <div id="root"></div>
+</body>
+<script>
+    // 列表动画的实现
+    const app = Vue.createApp({
+        data(){
+            return {
+                list:[1,2,3]
+            }
+        },
+        methods:{
+            // 按钮控制是否展示
+            add(){
+                this.list.unshift(this.list.length+1);
+            },
+            remove(item){
+                this.list = this.list.filter(t => t != item)
+            },
+        },
+        // 列表动画通过<transition-group>实现
+        template:`
+            <div>
+                <transition-group>
+                    <span class="list-item" v-for="item in list" :key="item" @click="remove(item)">{{item}}</span>
+                </transition-group>
+                <br/>
+                <button @click="add">增加</button>
+            </div>
+        `
+    });
+    
+    const vm = app.mount('#root');
+</script>
+</html>

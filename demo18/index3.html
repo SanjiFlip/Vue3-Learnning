@@ -1,0 +1,74 @@
+<!--
+ * @Description: 
+ * @Version: 1.0
+ * @Autor: Ambition
+ * @Date: 2022-04-08 16:17:18
+ * @LastEditors: Ambition
+ * @LastEditTime: 2022-04-08 16:18:31
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>lesson17</title>
+    <script src="https://unpkg.com/vue@next"></script>
+</head>
+<body>
+    <div id="root"></div>
+</body>
+<script>
+    // 全局mixin
+    const app = Vue.createApp({
+        data(){
+            return {
+                number: 1,
+            }
+        },
+        created() {
+            console.log('app created')
+        },
+        // mixins:[myMixin],
+        methods:{
+            // 按钮控制是否展示
+            handleClick(){
+                console.log("app handleClick");
+            },
+        },
+        template:`
+            <div>
+                <div>{{number}}</div>
+                <div>{{count}}</div>
+                <child/>
+                <button @click="handleClick">增加</button>
+            </div>
+        `
+    });
+    
+    // 全局mixin
+    app.mixin({
+        data(){
+            return {
+                number:2,
+                count:22222
+            }
+        },
+        created() {
+            console.log('mixin created')
+        },
+        methods:{
+            andleClick(){
+                console.log("mixin handleClick");
+            },
+        }
+    })
+
+    app.component("child",{
+        // mixins:[myMixin],
+        template:`<div>{{count}}</div>`
+    })
+
+    const vm = app.mount('#root');
+</script>
+</html>

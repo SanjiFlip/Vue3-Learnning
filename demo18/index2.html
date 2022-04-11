@@ -1,0 +1,78 @@
+<!--
+ * @Description: 
+ * @Version: 1.0
+ * @Autor: Ambition
+ * @Date: 2022-04-08 16:08:23
+ * @LastEditors: Ambition
+ * @LastEditTime: 2022-04-08 16:16:20
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>lesson17</title>
+    <script src="https://unpkg.com/vue@next"></script>
+</head>
+<body>
+    <div id="root"></div>
+</body>
+<script>
+    // mixin 混入
+    // 当实例中没有和mixin中同名的数据的时候，会采用mixin中的数据
+    // 组件data、methods优先级高于mixin中的data、methods
+    // 生命周期函数，先执行mixin中的，再执行组件中的
+    const myMixin ={
+        data(){
+            return {
+                number:2,
+                count:22222
+            }
+        },
+        created() {
+            console.log('mixin created')
+        },
+        methods:{
+            andleClick(){
+                console.log("mixin handleClick");
+            },
+        }
+    }
+
+    const app = Vue.createApp({
+        data(){
+            return {
+                number: 1,
+            }
+        },
+        created() {
+            console.log('app created')
+        },
+        mixins:[myMixin],
+        methods:{
+            // 按钮控制是否展示
+            handleClick(){
+                console.log("app handleClick");
+            },
+        },
+        template:`
+            <div>
+                <div>{{number}}</div>
+                <div>{{count}}</div>
+                <child/>
+                <button @click="handleClick">增加</button>
+            </div>
+        `
+    });
+    
+    // 子组件中无法使用mixin中的数据以及方法
+    // 如果想要使用minixin中的数据和方法，需要在子组件中使用mixins:[]
+    app.component("child",{
+        mixins:[myMixin],
+        template:`<div>{{count}}</div>`
+    })
+
+    const vm = app.mount('#root');
+</script>
+</html>

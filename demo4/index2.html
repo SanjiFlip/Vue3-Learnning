@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>lesson4</title>
+</head>
+<script src="https://unpkg.com/vue@next"></script>
+<body>
+    <div id="root"></div>
+</body>
+<script>
+    Vue.createApp({
+        data() {
+            return {
+                todo:"",
+                list:["mac","iphone","ipad","iwatch"]
+            }
+        },
+        methods: {
+            handleAddItem(){
+                if(this.todo == ""){
+                    alert("输入框中的值不能为空");
+                }else{
+                    this.list.push(this.todo);
+                    this.todo = "";
+                }
+            }
+        },
+        template: `
+            <div>
+                <input v-model="todo">
+                <button @click="handleAddItem">增加</button>
+                <ul>
+                    <li v-for="(item,index) of list">索引:{{index+1}}值:{{item}}</li>
+                </ul>
+            </div>`
+    }).mount('#root');
+</script>
+</html>

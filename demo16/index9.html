@@ -1,0 +1,60 @@
+<!--
+ * @Description: 
+ * @Version: 1.0
+ * @Autor: Ambition
+ * @Date: 2021-06-15 17:39:11
+ * @LastEditors: Ambition
+ * @LastEditTime: 2022-03-30 11:50:02
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>lesson16</title>
+</head>
+<script src="https://unpkg.com/vue@next"></script>
+<body>
+    <div id="root"></div>
+</body>
+<script>
+    const app = Vue.createApp({
+        data(){
+            return {
+                count: 'a',
+            }
+        },
+        template:`<div>
+                    <counter v-model.uppercase="count"/>
+                  </div>`
+    });
+
+    // v-model传给子组件必须用modelValue接收
+    // 触发事件的名字也应该叫update:modelValue
+    // 关于传值改名
+    // 关于传送多个值
+    app.component('counter',{
+        props:{
+            'modelValue': String,
+            'modelModifiers': {
+                default: ()=> ({})
+            }
+        },
+        methods:{
+            handleItemCilck(){
+                let newValue = this.modelValue+'b';
+                if(this.modelModifiers.uppercase){
+                    newValue = newValue.toUpperCase();
+                };
+                this.$emit('update:modelValue',newValue);
+            }
+        },
+        template: `
+            <div @click="handleItemCilck">{{modelValue}}</div>
+        `
+    });
+
+    const vm = app.mount('#root');
+</script>
+</html>

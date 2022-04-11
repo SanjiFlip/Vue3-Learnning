@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>lesson13</title>
+</head>
+<script src="https://unpkg.com/vue@next"></script>
+<body>
+    <div id="root"></div>
+</body>
+<script>
+    // 事件修饰符：stop、prevent、capture、self、once、passive
+    // 按键修饰符：enter、tab、delete、esc、up、down、left、right
+    // 鼠标修饰符：left、right、middle
+    // 精确修饰符：exact
+    const app = Vue.createApp({
+        methods: {
+            handleKeyDown(event){
+                // 按下任意按键就会执行
+                console.log("key down")
+                console.log(event);
+            },
+            handleKeyDown_enter(event){
+                // 按下回车就会执行
+                console.log("enter down")
+                console.log(event);
+            }
+        },
+        template:`
+        <div>
+            <input @keydown="handleKeyDown"/><br/>
+            <input @keydown.enter="handleKeyDown_enter"/><br/>
+            <div @click.left="handleKeyDown_enter">123</div><br/>
+            <div @click.tab.exact="handleKeyDown_enter">123</div>
+        </div>
+        `
+    });
+    const vm = app.mount('#root');
+</script>
+</html>

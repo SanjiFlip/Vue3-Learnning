@@ -1,0 +1,44 @@
+<!--
+ * @Description: 
+ * @Version: 1.0
+ * @Autor: Ambition
+ * @Date: 2021-05-29 23:30:41
+ * @LastEditors: Ambition
+ * @LastEditTime: 2022-03-21 21:21:18
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>lesson11</title>
+</head>
+<script src="https://unpkg.com/vue@next"></script>
+<body>
+    <div id="root"></div>
+</body>
+<script>
+    // v-if 是通过移除元素
+    // v-show 是通过isDisplay样式来控制元素的展示与否
+    const app = Vue.createApp({
+        data() {
+            return {
+                show: false,
+                conditionOne: false,
+                conditionTwo: true
+            }
+        },
+        template:`
+        <div v-if="show"> Hello World</div>
+
+        <div v-if="conditionOne">if</div>
+        <div v-else-if="conditionTwo">else-if</div>
+        <div v-else>if</div>
+
+        <div v-show="show"> Bye World</div>
+        `
+    });
+    const vm = app.mount('#root');
+</script>
+</html>

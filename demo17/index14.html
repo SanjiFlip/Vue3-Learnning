@@ -1,0 +1,88 @@
+<!--
+ * @Description: 
+ * @Version: 1.0
+ * @Autor: Ambition
+ * @Date: 2022-04-08 11:07:55
+ * @LastEditors: Ambition
+ * @LastEditTime: 2022-04-08 11:10:13
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>lesson16</title>
+    <style type="text/css">
+        .v-enter-from{
+            opacity: 0;
+        }
+        .v-enter-active{
+            transition: opacity 3s ease-in;
+        }
+        .v-enter-to{
+            opacity: 1;
+        }
+        .v-leave-from{
+            opacity: 1;
+        }
+        .v-leave-active{
+            transition: opacity 3s ease-in;
+        }
+        .v-leave-to{
+            opacity: 0;
+        }
+    </style>
+    <script src="https://unpkg.com/vue@next"></script>
+</head>
+<body>
+    <div id="root"></div>
+</body>
+<script>
+    const ComponentA = {
+        template: `<div>Hello World</div>`
+    }
+
+    const ComponentB = {
+        template: `<div>Bye World</div>`
+    }
+
+    // 多个单组件之间的切换
+    const app = Vue.createApp({
+        data(){
+            return {
+                component:'component-a',
+            }
+        },
+        methods:{
+            // 按钮控制是否展示
+            toggleShow(){
+                if(this.component === "component-a"){
+                    this.component = "component-b"; 
+                }else{
+                    this.component = "component-a"; 
+                }
+            },
+            
+        },
+        components:{
+            'component-a':ComponentA,
+            'component-b':ComponentB,
+        },
+        // 如果想要一个组件消失后另一个才开始展示可以使用 <transition mode="in-out"> mode="in-out" 先进入再出去
+        // 如果是 mode = "out-in" 先出去再进入
+        // 如果想要第一次进入也有初始动画可以使用 <transition appear>
+        // 动态组件的写法 <component :is="component">
+        template:`
+            <div>
+                <transition  mode="out-in"  appear>
+                    <component :is="component">
+                </transition>
+                <button @click="toggleShow">切换</button>
+            </div>
+        `
+    });
+    
+    const vm = app.mount('#root');
+</script>
+</html>

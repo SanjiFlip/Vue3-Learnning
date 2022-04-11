@@ -1,0 +1,46 @@
+<!--
+ * @Description: 
+ * @Version: 1.0
+ * @Autor: Ambition
+ * @Date: 2022-04-10 10:09:43
+ * @LastEditors: Ambition
+ * @LastEditTime: 2022-04-10 10:14:58
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>lesson18</title>
+    <style>
+       
+    </style>
+    <script src="https://unpkg.com/vue@next"></script>
+</head>
+<body>
+    <div id="root"></div>
+</body>
+<script>
+    // toRef
+    const app = Vue.createApp({
+        template:`
+            <div>{{age}}</div>
+        `,
+        setup(props,context) {
+            // 引用vue中的toRef
+            const { reactive ,toRef } = Vue;
+            const data = reactive({name:'dell'});
+            // 假如定义一个不存在的对象，取这个对象的话，会报错 ，采用toRef()
+            // toRefs(data,"age") 含义是：取data中的age属性 取不到为null，取得到就是对应的值
+            const age = toRef(data,"age");
+            setTimeout(() => {
+                age.value = "ambition";
+            },2000);
+            return { age };
+        }
+    });
+    
+    const vm = app.mount('#root');
+</script>
+</html>

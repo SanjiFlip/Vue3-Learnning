@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>lesson14</title>
+</head>
+<script src="https://unpkg.com/vue@next"></script>
+<body>
+    <div id="root"></div>
+</body>
+<script>
+    // input ,textarea
+    // checkbox 需要使用数组来接受 单个和多个的用法 radio 需要使用字符串接受
+    // select 支持多选需要加上multiple 这个时候就需要使用数组来接受数据
+    // select可以传入对象
+    const app = Vue.createApp({
+        data() {
+            return {
+                message: '',
+                message1: '',
+                options: [{
+                    text: 'A', value: {value: 'A'}
+                },
+                {
+                    text: 'B', value: {value: 'B'}
+                },
+                {
+                    text: 'C', value: {value: 'C'}
+                }]
+            }
+        },
+        template:`
+        <div>
+            {{message}}
+            <select v-model="message" multiple>
+                  <option disabled value="">请选择内容</option>
+                  <option value="A">A</option>  
+                  <option value="B">B</option>  
+                  <option value="C">C</option>  
+            </select>
+            <hr/>
+            {{message1}}
+            <select v-model="message1" multiple>
+                <option v-for="item in options" :value="item.value">
+                    {{item.text}}
+                </option> 
+            </select>
+        </div>
+        `
+    });
+    const vm = app.mount('#root');
+</script>
+</html>

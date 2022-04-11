@@ -1,0 +1,47 @@
+<!--
+ * @Description: 
+ * @Version: 1.0
+ * @Autor: Ambition
+ * @Date: 2022-04-10 23:19:49
+ * @LastEditors: Ambition
+ * @LastEditTime: 2022-04-10 23:24:21
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>lesson18</title>
+    <style>
+       
+    </style>
+    <script src="https://unpkg.com/vue@next"></script>
+</head>
+<body>
+    <div id="root"></div>
+</body>
+<script>
+    // dom ref
+    // CompositionApi 的语法下，获取真实的DOM元素节点
+    const app = Vue.createApp({
+        setup(){
+            const { ref,onMounted } = Vue;
+            // 固定写法，hello和ref标签属性一致,才能获取dom节点
+            const hello = ref(null);
+            onMounted(()=>{
+                console.log(hello);
+                console.log(hello.value);
+            });
+            return { hello };
+        },
+        template:`
+            <div>
+                <div ref="hello">hello world</div>
+            </div>
+        `,
+    });
+    
+    const vm = app.mount('#root');
+</script>
+</html>

@@ -1,0 +1,60 @@
+<!--
+ * @Description: 
+ * @Version: 1.0
+ * @Autor: Ambition
+ * @Date: 2022-04-03 13:20:24
+ * @LastEditors: Ambition
+ * @LastEditTime: 2022-04-03 13:33:22
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>lesson16</title>
+    <style type="text/css">
+        /*
+            过渡
+        */
+        .transition {
+            transition: 3s background-color ease;
+        }
+
+        </style>
+    <script src="https://unpkg.com/vue@next"></script>
+</head>
+<body>
+    <div id="root"></div>
+</body>
+<script>
+    // 过渡，动画
+    const app = Vue.createApp({
+        data(){
+            return {
+                styleObject: {
+                    background: 'blue'
+                }
+            }
+        },
+        methods:{
+            // 切换背景色为绿色
+            toggleStyle(){
+                if(this.styleObject.background === 'blue'){
+                    this.styleObject.background = 'green';
+                }else{
+                    this.styleObject.background = 'blue';
+                }
+            }
+        },
+        template:`
+            <div>
+                <div class="transition" :style="styleObject">Hello World</div>
+                <button @click="toggleStyle">切换</button>
+            </div>
+        `
+    });
+    
+    const vm = app.mount('#root');
+</script>
+</html>

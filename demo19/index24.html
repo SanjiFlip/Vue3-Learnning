@@ -1,0 +1,85 @@
+<!--
+ * @Description: 
+ * @Version: 1.0
+ * @Autor: Ambition
+ * @Date: 2022-04-10 22:39:35
+ * @LastEditors: Ambition
+ * @LastEditTime: 2022-04-10 23:02:42
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>lesson18</title>
+    <style>
+       
+    </style>
+    <script src="https://unpkg.com/vue@next"></script>
+</head>
+<body>
+    <div id="root"></div>
+</body>
+<script>
+
+    const app = Vue.createApp({
+        // setup里面没有beforeCreate、created  setup在这两个生命周期函数之间调用
+        // beforeMount => onBeforeMount
+        // mounted => onMounted
+        // beforeUpdate => onBeforeUpdate
+        // updated => onUpdated
+        // beforeUnmount => onBeforeUnmount
+        // unmounted => onUnmounted
+        // 新的 onRenderTracked 每次渲染后收集依赖，后自动执行的函数
+        // onRenderTriggered 每次渲染会重新触发的函数
+        setup(){
+            const { ref, onBeforeMount, onMounted, 
+                onBeforeUpdate, onUpdated,onBeforeUnmount, onUnmounted,
+                onRenderTracked, onRenderTriggered
+            } = Vue;
+            const name = ref("dell");
+            onBeforeMount(()=>{
+                console.log("onBeforeMount");
+            });
+            onMounted(()=>{
+                console.log("onMounted");
+            });
+            onBeforeUpdate(()=>{
+                console.log("onBeforeUpdate");
+            });
+            onUpdated(()=>{
+                console.log("onUpdated");
+            });
+            onBeforeUnmount(()=>{
+                console.log("onBeforeUnmount");
+            });
+            onUnmounted(()=>{
+                console.log("onUnmounted");
+            });
+            // 每次渲染后重新收集响应式依赖  2022-04-10 22:39:35 发现问题，此函数只执行一次
+            onRenderTracked(()=>{
+                console.log("onRenderTracked");
+            });
+            // 每次出发页面重新渲染时自动执行
+            onRenderTriggered(()=>{
+                console.log("onRenderTriggered");
+            });
+            // const handleClick = ()=>{
+            //     name.value = "ambition";
+            // };
+            function handleClick(){
+                name.value = "ambition";
+            }
+            return {name,handleClick};
+        },
+        template:`
+            <div @click="handleClick">
+                {{name}}
+            </div>
+        `,
+    });
+    
+    const vm = app.mount('#root');
+</script>
+</html>

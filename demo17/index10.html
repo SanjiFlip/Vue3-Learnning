@@ -1,0 +1,93 @@
+<!--
+ * @Description: 
+ * @Version: 1.0
+ * @Autor: Ambition
+ * @Date: 2022-04-07 19:17:30
+ * @LastEditors: Ambition
+ * @LastEditTime: 2022-04-07 19:22:30
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>lesson16</title>
+    <style type="text/css">
+
+        @keyframes shake {
+            0% {
+                transform: translateX(-100px);
+            }
+            50% {
+                transform: translateX(-50px);
+            }
+            100% {
+                transform: translateX(50px);
+            }
+            
+        }
+        .v-enter-from{
+            color:red;
+        }
+        /*
+          入场动画
+        */
+        .v-enter-active{
+            animation: shake 10s;
+            transition: all 3s ease-in;
+        }
+        /* .v-enter-to{
+            color:green;
+        } */
+        /*
+          出场动画
+        */
+        .v-leave-active{
+            color: red;
+            animation: shake 10s;
+            transition: all 3s ease-in;
+        }
+    </style>
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
+    <script src="https://unpkg.com/vue@next"></script>
+</head>
+<body>
+    <div id="root"></div>
+</body>
+<script>
+    // 单元素，单组件的入场出场动画
+    const app = Vue.createApp({
+        data(){
+            return {
+                show:false,
+            }
+        },
+        methods:{
+            // 按钮控制是否展示
+            toggleShow(){
+                this.show = !this.show;
+            }
+            
+        },
+        // 可以进行重命名 <transition name="xxx">  name 可以自定义
+        // 如果想要动画效果和过渡效果同时执行完成 type="transition" 以过渡效果时间为准
+        // type="animation" 以动画效果时间为准
+        // <transition :duration="1000"> duration 可以自定义统一时间 ms 1000ms 一秒
+        // <transition :duration="{enter:1000,leave:1000}"> 入场动画和出场动画都是1秒
+        template:`
+            <div>
+                <transition type="transition">
+                    <div v-if="show">Hello World</div>
+                </transition>
+                <button @click="toggleShow">切换</button>
+            </div>
+        `
+    });
+    
+    const vm = app.mount('#root');
+</script>
+</html>

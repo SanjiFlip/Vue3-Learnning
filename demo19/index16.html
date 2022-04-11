@@ -1,0 +1,81 @@
+<!--
+ * @Description: 
+ * @Version: 1.0
+ * @Autor: Ambition
+ * @Date: 2022-04-10 16:14:43
+ * @LastEditors: Ambition
+ * @LastEditTime: 2022-04-10 16:32:58
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>lesson18</title>
+    <style>
+       
+    </style>
+    <script src="https://unpkg.com/vue@next"></script>
+</head>
+<body>
+    <div id="root"></div>
+</body>
+<script>
+
+    // 关于 list 操作的内容进行了封装
+    const listRelativeEffect = () => {
+        const {  reactive } = Vue;
+        const list = reactive([]);
+        const addItemToList = (item)=>{
+            list.push(item);
+        };
+        return { list, addItemToList };
+    };
+
+    // 关于 inputValue 操作的内容进行了封装
+    const inputValueRelativeEffect = () => {
+        const {  ref } = Vue;
+        const inputValue = ref('');
+        const handleInputChange = (e)=>{
+                // console.log(e.target.value);
+                inputValue.value = e.target.value;
+        };
+        return { inputValue, handleInputChange };
+    };
+
+    const app = Vue.createApp({
+        setup(){
+            // 流程的调度中转
+            const { list, addItemToList } = listRelativeEffect();
+            const { inputValue, handleInputChange } = inputValueRelativeEffect();
+            const handleSubmit = ()=>{
+                addItemToList(inputValue);
+                // inputValue.value = '';
+            }
+            return {
+                inputValue,
+                list,
+                handleInputChange,
+                addItemToList,
+                handleSubmit
+            }
+        },
+        // <button @click="handleSubmit">提交</button>
+        template:`
+            <div>
+                <div>
+                    <input :value = "inputValue" @input="handleInputChange"/>
+                    <div>inputValue:{{inputValue}}</div>
+                    <button @click="()=>addItemToList(inputValue)">提交</button>
+                </div>
+                <ul>
+                    <li v-for="(item,index) in list" :key="index">{{item}}</li>
+                </ul>
+            </div>
+        `,
+    });
+    
+    const vm = app.mount('#root');
+</script>
+</html>

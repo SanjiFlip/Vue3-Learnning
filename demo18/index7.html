@@ -1,0 +1,52 @@
+<!--
+ * @Description: 
+ * @Version: 1.0
+ * @Autor: Ambition
+ * @Date: 2022-04-08 23:35:11
+ * @LastEditors: Ambition
+ * @LastEditTime: 2022-04-08 23:39:07
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>lesson17</title>
+    <script src="https://unpkg.com/vue@next"></script>
+</head>
+<body>
+    <div id="root"></div>
+</body>
+<script>
+
+    // 自定义局部指令 聚焦
+    const directives = {
+        focus:{
+            mounted(el){
+                el.focus();
+            }
+        },
+    }
+
+    // 自定义指令 directive
+    // 注入局部自定义指令 directives:directives
+    const app = Vue.createApp({
+        directives: directives,
+        template:`
+            <div>
+                <input v-focus/>
+            </div>
+        `
+    });
+    
+    // // 全局自定义指令
+    // app.directive('focus',{
+    //     mounted(el){
+    //         el.focus();
+    //     }
+    // })
+
+    const vm = app.mount('#root');
+</script>
+</html>

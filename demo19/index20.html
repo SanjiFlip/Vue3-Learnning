@@ -1,0 +1,66 @@
+<!--
+ * @Description: 
+ * @Version: 1.0
+ * @Autor: Ambition
+ * @Date: 2022-04-10 17:40:32
+ * @LastEditors: Ambition
+ * @LastEditTime: 2022-04-10 17:53:32
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>lesson18</title>
+    <style>
+       
+    </style>
+    <script src="https://unpkg.com/vue@next"></script>
+</head>
+<body>
+    <div id="root"></div>
+</body>
+<script>
+    // watch 侦听器
+    const app = Vue.createApp({
+        setup(){
+            const { reactive,watch,toRefs } = Vue;
+            const nameObj = reactive({name:"dell",age:11});
+            // 具备一定的惰性 lazy
+            // 参数可以拿到原始和新值
+            // 不能直接写nameObj.name
+            // 可以侦听多个数据的变化，用一个侦听器承载
+            // watch(() => nameObj.name,(newVal,oldVal)=>{
+            //     console.log(newVal,oldVal);
+            // });
+            // watch(nameObj,(newVal,oldVal)=>{
+            //     console.log(newVal,oldVal);
+            // });
+            watch([() => nameObj.name,() => nameObj.age],([newName,newAge],[oldName,oldAge])=>{
+                console.log(newName,oldName,"---",newAge,oldAge);
+            });
+            const { name,age } = toRefs(nameObj);
+            return {
+                name,age
+            };
+        },
+        template:`
+            <div>
+                Name: <input v-model="name">
+            </div>
+            <div>
+                Name is {{name}}
+            </div>
+            <div>
+                Age: <input v-model="age">
+            </div>
+            <div>
+                Age is {{age}}
+            </div>
+        `,
+    });
+    
+    const vm = app.mount('#root');
+</script>
+</html>

@@ -1,0 +1,96 @@
+<!--
+ * @Description: 
+ * @Version: 1.0
+ * @Autor: Ambition
+ * @Date: 2021-06-15 17:39:11
+ * @LastEditors: Ambition
+ * @LastEditTime: 2022-03-23 16:04:09
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>lesson16</title>
+</head>
+<script src="https://unpkg.com/vue@next"></script>
+<body>
+    <div id="root"></div>
+</body>
+<script>
+    // 子传父 子驼峰addOne 父组件add-one 
+    const app = Vue.createApp({
+        data(){
+            return {
+                count:1,
+                num:2,
+                mode:-10,
+            }
+        },
+        methods:{
+            handleAddOne(){
+                this.count += 1;
+            },
+            handleAddOne2(newNum){
+                this.num = newNum;
+            },
+            handleAddOne2(mode){
+                this.mode = mode;
+            },
+        },
+        template:`<div>
+                    <counter :count="count" @add-one="handleAddOne"/>
+                    <counter2 :num="num" @add-one2="handleAddOne2"/>
+                    <counter3 :mode="mode" @add="handleAddOne2"/>
+                  </div>`
+    });
+
+    app.component('counter',{
+        props:['count'],
+        methods:{
+            handleItemCilck(){
+                this.$emit('addOne');
+            }
+        },
+        template: `
+            <div @click="handleItemCilck">{{count}}</div>
+        `
+    });
+
+    app.component('counter2',{
+        props:['num'],
+        emits:['addOne2'],
+        methods:{
+            handleItemCilck(){
+                this.$emit('addOne2',this.num + 3);
+            },
+        },
+        template: `
+            <div @click="handleItemCilck">{{num}}</div>
+        `
+    });
+
+    app.component('counter3',{
+        props:['mode'],
+        emits:{
+            add: (mode)=>{
+                if(mode > 0){
+                    return true;
+                }
+                return false;
+            }
+        },
+        methods:{
+            handleItemCilck(){
+                this.$emit('add',this.mode + 3);
+            },
+        },
+        template: `
+            <div @click="handleItemCilck">{{mode}}</div>
+        `
+    });
+
+    const vm = app.mount('#root');
+</script>
+</html>

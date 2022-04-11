@@ -1,0 +1,89 @@
+<!--
+ * @Description: 
+ * @Version: 1.0
+ * @Autor: Ambition
+ * @Date: 2022-04-06 13:17:20
+ * @LastEditors: Ambition
+ * @LastEditTime: 2022-04-07 19:16:02
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>lesson16</title>
+    <style type="text/css">
+
+        @keyframes shake {
+            0% {
+                transform: translateX(-100px);
+            }
+            50% {
+                transform: translateX(-50px);
+            }
+            100% {
+                transform: translateX(50px);
+            }
+            
+        }
+        .v-enter-from{
+            color:red;
+        }
+        /*
+          入场动画
+        */
+        .v-enter-active{
+            animation: shake 3s;
+            transition: all 3s ease-in;
+        }
+        /* .v-enter-to{
+            color:green;
+        } */
+        /*
+          出场动画
+        */
+        .v-leave-active{
+            color: red;
+            animation: shake 3s;
+            transition: all 3s ease-in;
+        }
+    </style>
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
+    <script src="https://unpkg.com/vue@next"></script>
+</head>
+<body>
+    <div id="root"></div>
+</body>
+<script>
+    // 单元素，单组件的入场出场动画
+    const app = Vue.createApp({
+        data(){
+            return {
+                show:false,
+            }
+        },
+        methods:{
+            // 按钮控制是否展示
+            toggleShow(){
+                this.show = !this.show;
+            }
+            
+        },
+        // 可以进行重命名 <transition name="xxx">  name 可以自定义
+        template:`
+            <div>
+                <transition>
+                    <div v-if="show">Hello World</div>
+                </transition>
+                <button @click="toggleShow">切换</button>
+            </div>
+        `
+    });
+    
+    const vm = app.mount('#root');
+</script>
+</html>

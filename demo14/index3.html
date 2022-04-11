@@ -1,0 +1,56 @@
+<!--
+ * @Description: 
+ * @Version: 1.0
+ * @Autor: Ambition
+ * @Date: 2021-06-05 20:16:40
+ * @LastEditors: Ambition
+ * @LastEditTime: 2022-03-22 17:36:48
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>lesson14</title>
+</head>
+<script src="https://unpkg.com/vue@next"></script>
+<body>
+    <div id="root"></div>
+</body>
+<script>
+    // input ,textarea
+    // checkbox 需要使用数组来接受 单个和多个的用法 radio 需要使用字符串接受
+    // select 支持多选需要加上multiple 这个时候就需要使用数组来接受数据
+    // 修饰符 lazy,number,trim
+    // trim 只会去除字符串前后的空格，不会去除字符串中间的空格
+    const app = Vue.createApp({
+        data() {
+            return {
+                message: 'hello',
+                num: '123',
+                hello: "Hello"
+            }
+        },
+        template:`
+        <div>
+            {{message}}
+            <input type="checkbox" v-model="message" true-value="hello" false-value="world">
+            <br/>
+            lazy修饰符：鼠标移出点击才会修改
+            <input v-model.lazy="message"/>
+            <br/>
+            <hr/>
+            修改内容后会修改相关的类型<br/>
+            {{typeof num}}
+            {{num}}
+            <input v-model.number="num" type="number"/>
+            <hr/>
+            {{hello}}
+            <input v-model.trim="hello"/>
+        </div>
+        `
+    });
+    const vm = app.mount('#root');
+</script>
+</html>

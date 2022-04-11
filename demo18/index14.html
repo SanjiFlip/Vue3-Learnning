@@ -1,0 +1,71 @@
+<!--
+ * @Description: 
+ * @Version: 1.0
+ * @Autor: Ambition
+ * @Date: 2022-04-09 20:15:54
+ * @LastEditors: Ambition
+ * @LastEditTime: 2022-04-09 20:31:04
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>lesson17</title>
+    <style>
+       
+    </style>
+    <script src="https://unpkg.com/vue@next"></script>
+</head>
+<body>
+    <div id="root"></div>
+</body>
+<script>
+
+    // plugin 插件,也就是把通用性的功能给封装起来
+    const myPlugin = {
+        // install 方法 插件运行时调用
+        install(app, options) {
+            // 提供全局参数
+            app.provide('name','Dell Lee');
+            app.directive('focus',{
+                mounted(el){
+                    el.focus();
+                }
+            });
+            // 挂载的实例有多少个组件，就会调用这个方法多少次
+            app.mixin({
+                mounted(){
+                    console.log('mixin');
+                }
+            });
+            // 对全局属性变量进行拓展
+            app.config.globalProperties.$sayHello="hello world";
+        }
+    }
+    
+    const app = Vue.createApp({
+        template:`
+            <my-title />
+        `
+    });
+
+    app.component('my-title',{
+        // 跨组件使用 采用inject 接收
+        inject:["name"],
+        mounted(){
+            console.log(this.$sayHello);
+        },
+        template: `
+            <div>{{name}}<input v-focus/></div>
+        `
+    });
+
+    // 使用插件
+    // 第二个参数会传给 install 中的 options
+    app.use(myPlugin,{name:"dell"});
+    
+    const vm = app.mount('#root');
+</script>
+</html>

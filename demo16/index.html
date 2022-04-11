@@ -1,0 +1,66 @@
+<!--
+ * @Description: 
+ * @Version: 1.0
+ * @Autor: Ambition
+ * @Date: 2021-06-15 17:39:11
+ * @LastEditors: Ambition
+ * @LastEditTime: 2022-03-22 20:05:21
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>lesson16</title>
+</head>
+<script src="https://unpkg.com/vue@next"></script>
+<body>
+    <div id="root"></div>
+</body>
+<script>
+    // 父传子用props
+    const app = Vue.createApp({
+        data() {
+            return {
+                num: 123,
+                str: "123"
+            }
+        },
+        template:`<div>
+                    <test content="hello world" />
+                    <test1 :content="str" />
+                    <test2 :content="num" />
+                  </div>`
+    });
+
+    app.component('test',{
+        props:['content'],
+        template: `<div>{{typeof content}} {{content}}</div>`
+    });
+    app.component('test1',{
+        props:['content'],
+        template: `<div>{{typeof content}} {{content}}</div>`
+    });
+
+    // 类型校验 String Boolean Array Object Function Symbol
+    // required 必填
+    // default 默认值 可以写函数 ()=>{ return 123;}
+    app.component('test2',{
+        props: {
+            content: {
+                type: Number,
+                required: true,
+                default: function(){},
+                validator: function(value){
+                    console.log(value>1000);
+                    return value < 1000;
+                }
+            }
+        },
+        template: `<div>{{typeof content}} {{content}}</div>`
+    });
+
+    const vm = app.mount('#root');
+</script>
+</html>

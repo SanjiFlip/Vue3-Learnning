@@ -1,0 +1,97 @@
+<!--
+ * @Description: 
+ * @Version: 1.0
+ * @Autor: Ambition
+ * @Date: 2021-05-30 12:42:45
+ * @LastEditors: Ambition
+ * @LastEditTime: 2022-03-22 15:40:48
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>lesson12</title>
+</head>
+<script src="https://unpkg.com/vue@next"></script>
+<body>
+    <div id="root"></div>
+</body>
+<script>
+    // 性能优化 循环的时候必须给一个唯一的key值这样会极大的提升我们循环的效率
+    // template 占位符，浏览器查看网页源码不展示不渲染 直接div的话会展示
+    const app = Vue.createApp({
+        data() {
+            return {
+                listArray: ['dell','aee','teacher'],
+                listObject: {
+                    firstName: "dell",
+                    lastName: "lee",
+                    job: "teacher"
+                }
+            }
+        },
+        methods: {
+            handelAddBtnClick(){ 
+                // 1.
+                // 第一种使用数组的变更函数 push pop shift
+                // this.listArray.push("hello")
+                // 这个函数是从后面移除元素
+                // this.listArray.pop()
+                // shift() 方法用于把数组的第一个元素从其中删除
+                // this.listArray.shift()
+                // unshift() 函数用于向当前数组的开头位置插入一个或多个指定的元素
+                // this.listArray.unshift("good")
+                // 这个函数是数组反转
+                // this.listArray.reverse()
+                // 这个是数组排序
+                // this.listArray.sort()
+                // splice 这个是操作数组 详细可见 https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/splice
+                
+                // 2.
+                // 直接替换数组
+                // this.listArray = ['abc','ace','google']
+                // this.listArray = ['abc'].concat(['world']);
+                
+                // 3.
+                // 直接更新数组的内容
+                // this.listArray[1] = 'hello'
+
+                // 4. 
+                // 往json对象里面添加元素,也可以自动的展示出来
+                this.listObject.age = 100;
+                this.listObject.sex = "male";
+            } 
+        },
+        template:`
+        <div>
+            <div v-for="item,index in listArray" :key="item">
+                {{index+1}}--{{item}}
+            </div>
+            
+            <div v-for="item in 10">
+                {{item}}
+            </div>
+
+            <template v-for="value,key in listObject" :key="key">
+                <div v-if="key !== 'firstName'">
+                {{value}}
+                </div>
+            </template>
+
+            <div v-for="value,key in listObject">
+                {{key}}--{{value}}
+            </div>
+
+            <div v-for="(value,key,index) in listObject">
+                {{index}}--{{key}}--{{value}}
+            </div>
+                
+        <button @click="handelAddBtnClick">新增</button>
+        </div>
+        `
+    });
+    const vm = app.mount('#root');
+</script>
+</html>

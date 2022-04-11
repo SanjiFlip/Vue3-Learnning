@@ -1,0 +1,52 @@
+<!--
+ * @Description: 
+ * @Version: 1.0
+ * @Autor: Ambition
+ * @Date: 2022-03-31 14:30:43
+ * @LastEditors: Ambition
+ * @LastEditTime: 2022-03-31 14:42:22
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>lesson16</title>
+</head>
+<script src="https://unpkg.com/vue@next"></script>
+<body>
+    <div id="root"></div>
+</body>
+<script>
+    // provide / inject
+    const app = Vue.createApp({
+        data(){
+            return {
+                count: 1,
+            }
+        },
+        template:`
+            <div>
+                <child :count="count"/>
+            </div>
+        `
+    });
+
+    app.component('child',{
+        props: ['count'],
+        template: `
+            <child-child :count="count"/>
+        `
+    });
+
+    app.component('child-child',{
+        props: ['count'],
+        template: `
+            <div>{{count}}</div>
+        `
+    });
+    
+    const vm = app.mount('#root');
+</script>
+</html>

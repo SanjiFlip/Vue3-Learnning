@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>lesson8</title>
+</head>
+<script src="https://unpkg.com/vue@next"></script>
+<body>
+    <div id="root"></div>
+</body>
+<script>
+    // 生命周期函数：在某一时期会自动执行的函数
+    const app = Vue.createApp({
+        data() {
+            return {
+                message:"hello world!",
+                disable: true,
+                show: false
+            }
+        },
+        methods: {
+            handleClick(){
+                alert("我被点击了");
+            }
+        },
+        template:`<div v-bind:title="message">hello</div>
+                <div><input v-bind:disabled="disable"></div>
+                <div v-if="show">Ambition</div>
+                <div v-on:click="handleClick">Ambition</div>
+        `
+    });
+    // vm 代表的就是vue应用的根组件
+    const vm = app.mount('#root');
+</script>
+</html>

@@ -1,0 +1,67 @@
+<!--
+ * @Description: 
+ * @Version: 1.0
+ * @Autor: Ambition
+ * @Date: 2022-04-10 09:55:42
+ * @LastEditors: Ambition
+ * @LastEditTime: 2022-04-10 09:57:59
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>lesson18</title>
+    <style>
+       
+    </style>
+    <script src="https://unpkg.com/vue@next"></script>
+</head>
+<body>
+    <div id="root"></div>
+</body>
+<script>
+    // ref , reactive 响应式的引用
+    // 原理，通过proxy 对数据进行封装,当数据变化时,触发模板等内容的更新
+    // ref 处理基础类型的数据 不适合数组和object
+    // reactive 处理非基础类型的数据
+    const app = Vue.createApp({
+        template:`
+            <div>{{name}}</div>
+        `,
+        setup(props,context) {
+            // // 需要引用ref 
+            // const { ref } = Vue;
+            // // proxy ,'dell' 变成proxy({value:'dell'}) 这样的一个响应式引用
+            // let name = ref("dell");
+            // setTimeout(() => {
+            //     name.value = "ambition";
+            // },2000);
+            // return {
+            //     // 渲染后 模板会自动调用name.value 不需要重复写
+            //     name
+            // }
+            
+
+            // 第二种写法使用reactive
+            // proxy ,{name:'dell'} 变成proxy({name:'dell'}) 这样的一个响应式引用
+            const { reactive , toRefs} = Vue;
+            const obj = reactive({name:'dell'});
+            setTimeout(() => {
+                obj.name = "ambition";
+            },2000);
+
+            // 这个时候获取的是obj里面的值而不是引用对象，页面无法重新渲染 需要采用toRefs()
+            // toRefs proxy({name : "dell"}) -> {name: proxy({value: "dell"})}
+            const { name } = toRefs(obj);
+
+            return {
+                name
+            };
+        }
+    });
+    
+    const vm = app.mount('#root');
+</script>
+</html>

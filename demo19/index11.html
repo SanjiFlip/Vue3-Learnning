@@ -1,0 +1,47 @@
+<!--
+ * @Description: 
+ * @Version: 1.0
+ * @Autor: Ambition
+ * @Date: 2022-04-10 10:17:26
+ * @LastEditors: Ambition
+ * @LastEditTime: 2022-04-10 10:23:30
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>lesson18</title>
+    <style>
+       
+    </style>
+    <script src="https://unpkg.com/vue@next"></script>
+</head>
+<body>
+    <div id="root"></div>
+</body>
+<script>
+    // toRef
+    const app = Vue.createApp({
+        template:`
+            <child app="test"/>
+        `,
+    });
+    
+    app.component('child',{
+        template:`
+            <div>child</div>
+        `,
+        setup(props,context) {
+            const { attrs, slots, emit } = context;
+            console.log(attrs.app); // None-props 父组件传过来的属性 标签上的属性
+            console.log(slots);
+            console.log(emit);
+            return {  };
+        }
+    });
+
+    const vm = app.mount('#root');
+</script>
+</html>

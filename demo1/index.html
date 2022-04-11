@@ -1,0 +1,42 @@
+<!--
+ * @Description: 
+ * @Version: 1.0
+ * @Autor: Ambition
+ * @Date: 2021-04-03 18:40:47
+ * @LastEditors: Ambition
+ * @LastEditTime: 2022-03-07 11:47:47
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>hello world</title>
+</head>
+<script src="https://unpkg.com/vue@next"></script>
+<body>
+    <div id="root"></div>
+</body>
+<script>
+        
+    Vue.createApp({
+        data() {
+            return {
+                content:3
+            }
+        },
+        mounted() {
+            // 自动执行
+            console.log("页面加载完成！")
+            // 定时器 每个多少秒加一
+            setInterval(() => {
+                this.content += 1;
+            }, 1000)
+        },
+        template: '<div>{{content}}</div>'
+    }).mount('#root');
+    
+
+</script>
+</html>
